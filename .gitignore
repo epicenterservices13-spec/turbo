@@ -1,0 +1,10 @@
+# Runtime, logs, and credentials
+*.data
+*.env
+*.log
+rclone_progress.log
+rclone_pid.txt
+gdrive/
+
+# Catalog
+Files/Pdf/MBA-USA-2022-Product-Catalog.pdf
