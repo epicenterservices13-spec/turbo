@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TURBO - Open Source Aquarium Knowledge Base. Centralized engineering directives for tanks, filtration systems, and biological media.">
+  <title>TURBO // Open Source Aquarium Knowledge</title>
+  <style>
+    :root {
+      --bg-dark: #0a0c10;
+      --bg-card: #12161f;
+      --bg-card-hover: #171d2a;
+      --text-main: #e6edf3;
+      --text-muted: #8b949e;
+      --accent-cyan: #00f0ff;
+      --accent-crimson: #ff2a5f;
+      --accent-green: #00ff88;
+      --border-color: #21262d;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(180deg, rgba(0, 240, 255, 0.08) 0%, rgba(10, 12, 16, 0) 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      background: rgba(0, 240, 255, 0.05);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #ffffff 40%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-cyan);
+      background: var(--bg-card-hover);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Calculator Section */
+    .calculator-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .calculator-section h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+      font-family: var(--font-mono);
+    }
+
+    .form-group input {
+      width: 100%;
+      background: #0d1117;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.65rem 0.8rem;
+      color: #fff;
+      font-size: 1rem;
+      font-family: var(--font-mono);
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.2);
+    }
+
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .result-box {
+      background: #0d1117;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .result-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .result-value {
+      font-size: 1.35rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+    }
+
+    /* Benchmark Table */
+    .table-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+    }
+
+    .table-section h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      background: #0d1117;
+    }
+
+    td code {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: var(--accent-green);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+    }
+
+    footer a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">Open Source Life Support Protocols</div>
+    <h1>TURBO // AQUARIUM KNOWLEDGE</h1>
+    <p class="subtitle">Centralized open-source repository aligning all life-support systems, tank structural engineering, filtration hydrodynamics, and biological media specifications.</p>
+  </header>
+
+  <main>
+    <section class="grid">
+      <article class="card">
+        <div class="card-icon">📐</div>
+        <h2>Tanks & Enclosures</h2>
+        <p>Volumetric metrics, structural load tolerance, glass safety thickness factors, and specialized biotope layouts for aquatic habitats.</p>
+        <div class="card-footer">
+          <span>DIR: /tanks</span> &rarr;
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">⚡</div>
+        <h2>Filtration Staging</h2>
+        <p>Mechanical separation, pressurized canister circuits, silent bean-animal sump overflows, and zero-bypass fluid dynamics.</p>
+        <div class="card-footer">
+          <span>DIR: /filters</span> &rarr;
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-icon">🧫</div>
+        <h2>Media Matrix</h2>
+        <p>Specific Surface Area (SSA) ratings, pore geometry, fluidized K1/K3 bed reactors, and chemical adsorption resins.</p>
+        <div class="card-footer">
+          <span>DIR: /media</span> &rarr;
+        </div>
+      </article>
+    </section>
+
+    <!-- Interactive Hydro Calculator -->
+    <section class="calculator-section">
+      <h3><span>🧪</span> Dynamic Tank Load & Flow Calculator</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Input rectangular dimensions to calculate volume, net water mass, and required filtration turnover.</p>
+
+      <div class="calc-grid">
+        <div class="form-group">
+          <label for="len">Length (inches)</label>
+          <input type="number" id="len" value="36" min="1" step="0.5">
+        </div>
+        <div class="form-group">
+          <label for="wid">Width (inches)</label>
+          <input type="number" id="wid" value="18" min="1" step="0.5">
+        </div>
+        <div class="form-group">
+          <label for="hgt">Height (inches)</label>
+          <input type="number" id="hgt" value="18" min="1" step="0.5">
+        </div>
+      </div>
+
+      <div class="calc-results">
+        <div class="result-box">
+          <div class="result-label">Volume (US Gal)</div>
+          <div class="result-value" id="res-gal">50.5</div>
+        </div>
+        <div class="result-box">
+          <div class="result-label">Volume (Liters)</div>
+          <div class="result-value" id="res-lit">191.2</div>
+        </div>
+        <div class="result-box">
+          <div class="result-label">Water Weight (lbs)</div>
+          <div class="result-value" id="res-wt">421.2</div>
+        </div>
+        <div class="result-box">
+          <div class="result-label">Min Flow (5x GPH)</div>
+          <div class="result-value" id="res-flow">253 GPH</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Imperial Water Quality Standards -->
+    <section class="table-section">
+      <h3>Water Quality Parameters Reference</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Freshwater Planted</th>
+            <th>Riparium / Turtle</th>
+            <th>Marine / Reef</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ammonia (NH3)</strong></td>
+            <td><code>0.00 ppm</code></td>
+            <td><code>0.00 ppm</code></td>
+            <td><code>0.00 ppm</code></td>
+          </tr>
+          <tr>
+            <td><strong>Nitrite (NO2)</strong></td>
+            <td><code>0.00 ppm</code></td>
+            <td><code>0.00 ppm</code></td>
+            <td><code>0.00 ppm</code></td>
+          </tr>
+          <tr>
+            <td><strong>Nitrate (NO3)</strong></td>
+            <td><code>&lt; 20 ppm</code></td>
+            <td><code>&lt; 40 ppm</code></td>
+            <td><code>&lt; 5 ppm</code></td>
+          </tr>
+          <tr>
+            <td><strong>pH Range</strong></td>
+            <td><code>6.5 - 7.5</code></td>
+            <td><code>7.2 - 7.8</code></td>
+            <td><code>8.1 - 8.4</code></td>
+          </tr>
+          <tr>
+            <td><strong>Temperature</strong></td>
+            <td><code>75°F - 78°F</code></td>
+            <td><code>76°F - 82°F</code></td>
+            <td><code>77°F - 79°F</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>TURBO Knowledge Network &bull; Open Source Aquatic Engineering &bull; Aligned under Imperial Command Directives</p>
+  </footer>
+
+  <script>
+    function calculate() {
+      const l = parseFloat(document.getElementById('len').value) || 0;
+      const w = parseFloat(document.getElementById('wid').value) || 0;
+      const h = parseFloat(document.getElementById('hgt').value) || 0;
+
+      const cubicInches = l * w * h;
+      const gallons = cubicInches / 231;
+      const liters = gallons * 3.78541;
+      const waterWeight = gallons * 8.34;
+      const minFlow = gallons * 5;
+
+      document.getElementById('res-gal').textContent = gallons.toFixed(1);
+      document.getElementById('res-lit').textContent = liters.toFixed(1);
+      document.getElementById('res-wt').textContent = waterWeight.toFixed(1);
+      document.getElementById('res-flow').textContent = Math.round(minFlow) + ' GPH';
+    }
+
+    ['len', 'wid', 'hgt'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculate);
+    });
+    calculate();
+  </script>
+</body>
+</html>
