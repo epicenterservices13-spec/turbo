@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SneakyTheSlider - Task Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--accent), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .task-card {
+            background: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .task-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .task-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: capitalize;
+        }
+
+        .task-path {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SneakyTheSlider</h1>
+            <p class="subtitle">Mission Control & Task Management</p>
+        </header>
+
+        <main class="task-grid">
+            <a href="brain/" class="task-card">
+                <div class="task-title">Brain</div>
+                <div class="task-path">./brain</div>
+            </a>
+            <a href="brainrot%20middle%20ast%20war/" class="task-card">
+                <div class="task-title">Brainrot Middle Ast War</div>
+                <div class="task-path">./brainrot...</div>
+            </a>
+            <a href="coding/" class="task-card">
+                <div class="task-title">Coding</div>
+                <div class="task-path">./coding</div>
+            </a>
+            <a href="daily/" class="task-card">
+                <div class="task-title">Daily</div>
+                <div class="task-path">./daily</div>
+            </a>
+            <a href="dev/" class="task-card">
+                <div class="task-title">Dev</div>
+                <div class="task-path">./dev</div>
+            </a>
+            <a href="git/" class="task-card">
+                <div class="task-title">Git</div>
+                <div class="task-path">./git</div>
+            </a>
+            <a href="git%20tubo/" class="task-card">
+                <div class="task-title">Git Tubo</div>
+                <div class="task-path">./git tubo</div>
+            </a>
+            <a href="team/" class="task-card">
+                <div class="task-title">Team</div>
+                <div class="task-path">./team</div>
+            </a>
+            <a href="turbo-the-tech-dev/" class="task-card">
+                <div class="task-title">Turbo The Tech Dev</div>
+                <div class="task-path">./turbo-the...</div>
+            </a>
+            <a href="turbo2/" class="task-card">
+                <div class="task-title">Turbo 2</div>
+                <div class="task-path">./turbo2</div>
+            </a>
+            <a href="viral%20antanyms/" class="task-card">
+                <div class="task-title">Viral Antanyms</div>
+                <div class="task-path">./viral antanyms</div>
+            </a>
+        </main>
+
+        <footer class="footer">
+            &copy; 2026 SneakyTheSlider | Powered by Imperial Arsenal
+        </footer>
+    </div>
+</body>
+</html>
